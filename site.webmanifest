@@ -1,0 +1,16 @@
+{
+  "name": "Maple Automation",
+  "short_name": "Maple Automation",
+  "description": "AI and workflow automation consulting in Toronto.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#f4f1ea",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
