@@ -152,25 +152,31 @@
       workflowField.placeholder = `My estimate: ${savedEstimate}. The workflow is…`;
     }
 
-    contactForm.addEventListener("submit", (event) => {
+    const status = $("[data-form-status]", contactForm);
+    const submitButton = $("button[type=submit]", contactForm);
+
+    contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const status = $("[data-form-status]", contactForm);
       if (!contactForm.reportValidity()) return;
 
-      const data = new FormData(contactForm);
-      const name = String(data.get("name") || "").trim();
-      const email = String(data.get("email") || "").trim();
-      const company = String(data.get("company") || "").trim() || "Not provided";
-      const workflow = String(data.get("workflow") || "").trim();
-      const timing = String(data.get("timing") || "Not specified");
-      const estimate = safeStorageGet("mapleAutomationEstimate") || "Not calculated";
-      const subject = encodeURIComponent(`Workflow inquiry from ${name}${company !== "Not provided" ? ` — ${company}` : ""}`);
-      const body = encodeURIComponent(
-        `Hi Mica,\n\nI'd like to explore an automation workflow.\n\nName: ${name}\nEmail: ${email}\nCompany: ${company}\nTiming: ${timing}\nCalculator estimate: ${estimate}\n\nWorkflow:\n${workflow}\n\nThanks,\n${name}`
-      );
+      const data = new URLSearchParams(new FormData(contactForm));
+      data.set("estimate", safeStorageGet("mapleAutomationEstimate") || "");
 
-      if (status) status.textContent = "Attempting to open a Maple Automation email draft. If nothing happens, email hello@mapleautomation.ca directly.";
-      window.location.href = `mailto:hello@mapleautomation.ca?subject=${subject}&body=${body}`;
+      if (submitButton) submitButton.disabled = true;
+      if (status) status.textContent = "Sending…";
+      try {
+        // The owner's own Google Apps Script (site-ops/contact-form-apps-script.gs) logs the
+        // inquiry to a private Sheet and emails it to Mica.
+        const response = await fetch(contactForm.dataset.endpoint, { method: "POST", body: data });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.error || `HTTP ${response.status}`);
+        contactForm.reset();
+        if (status) status.textContent = "Thanks — your message was sent. Mica will reply personally.";
+      } catch {
+        if (status) status.textContent = "Sorry, that didn’t send. Please try again, or email hello@mapleautomation.ca directly.";
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
     });
   }
 
