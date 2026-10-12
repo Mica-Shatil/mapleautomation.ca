@@ -444,6 +444,7 @@ input[type="range"] { width: 100%; margin: 17px 0 0; accent-color: var(--blue); 
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .contact-form input { height: 48px; }
+.contact-form input.sr-only { width: 1px; height: 1px; }
 .contact-form textarea { min-height: 126px; resize: vertical; }
 .contact-form input:focus, .contact-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(83,102,255,.12); }
 .contact-form > label { margin-top: 18px; }
