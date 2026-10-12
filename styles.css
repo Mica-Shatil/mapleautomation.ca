@@ -495,10 +495,9 @@ input[type="range"] { width: 100%; margin: 17px 0 0; accent-color: var(--blue); 
 .faq-list details[open] summary::after { content: "−"; }
 .about { display: block; }
 .about-grid { display: grid; align-items: start; grid-template-columns: minmax(180px, .5fr) 1fr; gap: clamp(40px, 8vw, 120px); }
-.founder-mark { display: grid; aspect-ratio: .83; place-items: center; background: var(--blue); color: var(--green); border-radius: 220px 220px 18px 18px; font-family: Georgia, serif; font-size: clamp(64px, 9vw, 130px); font-style: italic; letter-spacing: -.08em; }
+.founder-photo { display: block; width: 100%; height: auto; aspect-ratio: .83; object-fit: cover; background: var(--blue); border-radius: 220px 220px 18px 18px; }
 .about-grid h2 { margin-bottom: 26px; font-size: clamp(38px, 4.8vw, 66px); font-weight: 550; letter-spacing: -.055em; line-height: 1; }
 .about-grid p:not(.eyebrow) { max-width: 660px; color: var(--muted); font-size: 17px; }
-.about-links { display: flex; margin-top: 30px; flex-wrap: wrap; gap: 30px; }
 .calculator label { margin-top: 22px; }
 .calculator label:first-child { margin-top: 0; }
 .calculator input[type="number"] { display: block; width: 100%; height: 56px; margin-top: 8px; padding: 0 16px; border: 1px solid #cfcbc2; border-radius: 8px; background: white; color: var(--ink); font-size: 20px; font-weight: 650; }
@@ -583,7 +582,7 @@ input[type="range"] { width: 100%; margin: 17px 0 0; accent-color: var(--blue); 
   .approach-grid article + article { border-top: 1px solid var(--line); }
   .step-number { margin-bottom: 18px; }
   .about-grid { grid-template-columns: 1fr; }
-  .founder-mark { max-width: 260px; }
+  .founder-photo { max-width: 260px; }
   .site-footer { grid-template-columns: 1fr; }
 }
 
